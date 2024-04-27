@@ -1,0 +1,33 @@
+version: "3"
+services:
+  1126_EC_compra_db:
+    image: postgres:10
+    volumes:
+      - db-data:/var/lib/postgresql/data1
+      - ./start_scripts/start.sql:/docker-entrypoint-initdb.d/init.sql    
+    environment:
+      POSTGRES_PASSWORD: compra
+      POSTGRES_USER: compra
+      POSTGRES_DB: compra
+    ports:
+      - "5433:5432"
+
+#  1126_EC__compra_rabbit:
+#    image: rabbitmq:3-management
+#    container_name: rabbitmq_management
+
+#    ports:
+#      - 5672:5672
+#      - 15672:15672
+
+#    volumes:
+#      - /docker_conf/rabbitmq/data/:/var/lib/rabbitmq/
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=admin
+#      - RABBITMQ_DEFAULT_PASS=passw123
+
+#    restart: always
+
+volumes:
+  db-data:
+    driver: local

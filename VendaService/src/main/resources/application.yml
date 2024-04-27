@@ -1,0 +1,58 @@
+server:
+  servlet:
+    context-path: /
+  port: 9080
+  compression:
+    mime-types:
+      - application/json
+
+spring:
+  application:
+    name: VendaService
+  main:
+    allow-bean-definition-overriding: true
+
+## Enabling database connection
+  datasource:
+    url: jdbc:postgresql://localhost:5433/compra
+    username: compra
+    password: compra
+    continue-on-error: true
+  jpa:
+    open-in-view: false
+    show-sql: true
+    format-sql: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+
+## Enable liquidbase
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-local.xml
+
+## Enabling rabbitmq
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: passw123
+    cache:
+      connection:
+        mode: CONNECTION
+      channel:
+        size: 50
+      checkout-timeout: 10000
+
+negocio:
+  estoque:
+    url: http://localhost:9081
+    fila: remover-itens-estoque
+    resposta:
+      fila: retorno-remover-itens-estoque
